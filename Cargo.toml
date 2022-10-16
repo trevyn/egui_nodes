@@ -2,7 +2,7 @@
 name = "egui_nodes"
 version = "0.1.6"
 authors = ["Cameron Haigh <cgwhaigh@gmail.com>"]
-edition = "2018"
+edition = "2021"
 license = "MIT"
 description = "A Egui port of https://github.com/Nelarius/imnodes"
 
