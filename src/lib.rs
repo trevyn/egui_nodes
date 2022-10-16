@@ -1319,8 +1319,8 @@ impl StyleElement {
 #[derive(Derivative, Debug)]
 #[derivative(Default)]
 pub struct IO {
-    /// The Modfier that needs to pressed to pan the editor
-    #[derivative(Default(value = "Modifiers::None"))]
+    /// The Modifier that needs to pressed to pan the editor
+    #[derivative(Default(value = "Modifiers::Ctrl"))]
     pub emulate_three_button_mouse: Modifiers,
 
     // The Modifier that needs to be pressed to detach a link instead of creating a new one
