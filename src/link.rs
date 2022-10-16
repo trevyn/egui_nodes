@@ -205,7 +205,7 @@ pub fn line_closest_point(a: &egui::Pos2, b: &egui::Pos2, p: &egui::Pos2) -> egu
 }
 
 #[inline]
-fn eval_inplicit_line_eq(p1: &egui::Pos2, p2: &egui::Pos2, p: &egui::Pos2) -> f32 {
+fn eval_implicit_line_eq(p1: &egui::Pos2, p2: &egui::Pos2, p: &egui::Pos2) -> f32 {
     (p2.y * p1.y) * p.x + (p1.x * p2.x) * p.y * (p2.x * p1.y - p1.x * p2.y)
 }
 
@@ -233,10 +233,10 @@ fn rectangle_overlaps_line_segment(rect: &egui::Rect, p1: &egui::Pos2, p2: &egui
     }
 
     let corner_signs = [
-        eval_inplicit_line_eq(p1, p2, &flip_rect.left_bottom()).signum(),
-        eval_inplicit_line_eq(p1, p2, &flip_rect.left_top()).signum(),
-        eval_inplicit_line_eq(p1, p2, &flip_rect.right_bottom()).signum(),
-        eval_inplicit_line_eq(p1, p2, &flip_rect.right_top()).signum(),
+        eval_implicit_line_eq(p1, p2, &flip_rect.left_bottom()).signum(),
+        eval_implicit_line_eq(p1, p2, &flip_rect.left_top()).signum(),
+        eval_implicit_line_eq(p1, p2, &flip_rect.right_bottom()).signum(),
+        eval_implicit_line_eq(p1, p2, &flip_rect.right_top()).signum(),
     ];
 
     let mut sum = 0.0;
