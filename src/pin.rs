@@ -3,8 +3,8 @@ use derivative::Derivative;
 
 #[derive(Default, Debug)]
 /// The Visual Style of a Link.
-/// If feilds are None then the Context style is used.
-/// shape defualts to CircleFilled
+/// If fields are None then the Context style is used.
+/// shape defaults to CircleFilled
 pub struct PinArgs {
     pub shape: PinShape,
     pub flags: Option<usize>,
@@ -35,7 +35,7 @@ impl Default for AttributeType {
     }
 }
 
-/// Controls the shape of an attribut pin.
+/// Controls the shape of an attribute pin.
 /// Triangle and TriangleFilled are not currently implemented and will not be drawn
 #[derive(Clone, Copy, Debug)]
 pub enum PinShape {
@@ -57,7 +57,7 @@ impl Default for PinShape {
 pub enum AttributeFlags {
     None = 0,
 
-    /// If there is a link on the node then it will detatch instead of creating a new one.
+    /// If there is a link on the node then it will detach instead of creating a new one.
     /// Requires handling of deleted links via Context::link_destroyed
     EnableLinkDetachWithDragClick = 1 << 0,
 

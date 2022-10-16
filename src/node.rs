@@ -1,8 +1,10 @@
+#![allow(clippy::type_complexity)]
+
 use super::*;
 use derivative::Derivative;
 
 #[derive(Default, Debug)]
-/// The Style of a Node. If feilds are None then the Context style is used
+/// The Style of a Node. If fields are None then the Context style is used
 pub struct NodeArgs {
     pub background: Option<egui::Color32>,
     pub background_hovered: Option<egui::Color32>,
@@ -126,9 +128,9 @@ pub struct NodeConstructor<'a> {
     pub(crate) args: NodeArgs,
 }
 
-impl<'a, 'b> NodeConstructor<'a> {
+impl<'a> NodeConstructor<'a> {
     /// Create a new node to be displayed in a Context.
-    /// id should be the same accross frames and should not be the same as any other currently used nodes
+    /// id should be the same across frames and should not be the same as any other currently used nodes
     pub fn new(id: usize, args: NodeArgs) -> Self {
         Self {
             id,
@@ -144,7 +146,7 @@ impl<'a, 'b> NodeConstructor<'a> {
     }
 
     /// Add an input attibute to a node, this attribute can be connected to output attributes of other nodes
-    /// id should be the same accross frames and should not be the same as any other currently used attributes
+    /// id should be the same across frames and should not be the same as any other currently used attributes
     /// the attribute should return a egui::Response to be checked for interaction
     pub fn with_input_attribute(
         mut self,
@@ -156,7 +158,7 @@ impl<'a, 'b> NodeConstructor<'a> {
         self
     }
     /// Add an output attibute to a node, this attribute can be connected to input attributes of other nodes
-    /// id should be the same accross frames and should not be the same as any other currently used attributes
+    /// id should be the same across frames and should not be the same as any other currently used attributes
     /// the attribute should return a egui::Response to be checked for interaction
     pub fn with_output_attribute(
         mut self,
@@ -168,7 +170,7 @@ impl<'a, 'b> NodeConstructor<'a> {
         self
     }
     /// Add a static attibute to a node, this attribute can't be connected to any other attributes
-    /// id should be the same accross frames and should not be the same as any other currently used attributes
+    /// id should be the same across frames and should not be the same as any other currently used attributes
     /// the attribute should return a egui::Response to be checked for interaction
     pub fn with_static_attribute(
         mut self,

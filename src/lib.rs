@@ -2,7 +2,7 @@
 //!
 //! # Using egui_nodes
 //!
-//! There are some simple examples [here](https://github.com/haighcam/egui_nodes/examples)
+//! There are some simple examples [here](https://github.com/haighcam/egui_nodes/tree/main/examples)
 //!
 //! Here is the basic usage:
 //! ``` rust
@@ -109,7 +109,7 @@ pub struct Context {
     left_mouse_dragging: bool,
     alt_mouse_dragging: bool,
     mouse_in_canvas: bool,
-    link_detatch_with_modifier_click: bool,
+    link_detach_with_modifier_click: bool,
 
     nodes: ObjectPool<NodeData>,
     pins: ObjectPool<PinData>,
@@ -130,7 +130,7 @@ pub struct Context {
 }
 
 impl Context {
-    /// Displays the current state of the editor on a give Egui Ui as well as updating user input to the context
+    /// Displays the current state of the editor on a given Egui Ui as well as updating user input to the context
     pub fn show<'a>(
         &mut self,
         nodes: impl IntoIterator<Item = NodeConstructor<'a>>,
@@ -167,9 +167,7 @@ impl Context {
             {
                 let ui = &mut ui;
                 let rect = ui.ctx().input().screen_rect();
-                ui.set_clip_rect(
-                    self.canvas_rect_screen_space.intersect(rect),
-                );
+                ui.set_clip_rect(self.canvas_rect_screen_space.intersect(rect));
                 ui.painter().rect_filled(
                     self.canvas_rect_screen_space,
                     0.0,
@@ -225,8 +223,8 @@ impl Context {
                     (self.alt_mouse_clicked || self.alt_mouse_dragging) && alt_mouse_clicked;
                 self.alt_mouse_clicked =
                     alt_mouse_clicked && !(self.alt_mouse_clicked || self.alt_mouse_dragging);
-                self.link_detatch_with_modifier_click =
-                    self.io.link_detatch_with_modifier_click.is_active(&io.modifiers);
+                self.link_detach_with_modifier_click =
+                    self.io.link_detach_with_modifier_click.is_active(&io.modifiers);
             }
             {
                 let ui = &mut ui;
@@ -1189,7 +1187,7 @@ impl Context {
                 self.click_interaction_state.link_creation.link_creation_type =
                     LinkCreationType::FromDetach;
             }
-        } else if self.link_detatch_with_modifier_click {
+        } else if self.link_detach_with_modifier_click {
             let link = &self.links.pool[idx];
             let start_pin = &self.pins.pool[link.start_pin_index];
             let end_pin = &self.pins.pool[link.end_pin_index];
@@ -1317,7 +1315,7 @@ impl StyleElement {
     }
 }
 
-/// This controls the modifers needed for certain mouse interactions
+/// This controls the modifiers needed for certain mouse interactions
 #[derive(Derivative, Debug)]
 #[derivative(Default)]
 pub struct IO {
@@ -1325,9 +1323,9 @@ pub struct IO {
     #[derivative(Default(value = "Modifiers::None"))]
     pub emulate_three_button_mouse: Modifiers,
 
-    // The Modifier that needs to be pressed to detatch a link instead of creating a new one
+    // The Modifier that needs to be pressed to detach a link instead of creating a new one
     #[derivative(Default(value = "Modifiers::None"))]
-    pub link_detatch_with_modifier_click: Modifiers,
+    pub link_detach_with_modifier_click: Modifiers,
 
     // The mouse button that pans the editor. Should probably not be set to Primary.
     #[derivative(Default(value = "Some(egui::PointerButton::Middle)"))]
@@ -1338,7 +1336,7 @@ pub struct IO {
 #[derive(Debug)]
 pub enum Modifiers {
     Alt,
-    Crtl,
+    Ctrl,
     Shift,
     Command,
     None,
@@ -1348,7 +1346,7 @@ impl Modifiers {
     fn is_active(&self, mods: &egui::Modifiers) -> bool {
         match self {
             Modifiers::Alt => mods.alt,
-            Modifiers::Crtl => mods.ctrl,
+            Modifiers::Ctrl => mods.ctrl,
             Modifiers::Shift => mods.shift,
             Modifiers::Command => mods.command,
             Modifiers::None => false,
